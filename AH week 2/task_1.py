@@ -10,8 +10,17 @@
 days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-def get_month(month):
-    score = 13
-    while score > 12 or score < 1:
-        score = int(input("enter a number for your month"))
-        
+def get_month():
+    month = 13
+    while month > 12 or month < 1:
+        month = int(input("enter a number for your month: "))
+    return month
+
+def find_info(array, selection):
+    return array[selection - 1]
+
+userInput = get_month()
+dayValue = find_info(days, userInput)
+monthValue = find_info(months, userInput)
+
+print(monthValue + " has " + str(dayValue) + " days")
