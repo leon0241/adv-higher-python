@@ -52,53 +52,70 @@ def navigate_maze(ax, ay):
     mazeRunning = True
     wallCheck = [False] * 4
     while mazeRunning == True:
-        coordX = ax[roomNumber][1]
-        coordY = ax[roomNumber][0]
+        coordV = ax[roomNumber][0] #X coord
+        coordH = ax[roomNumber][1] #Y coord
+        newRoomCoords = []
 
-        print("coords: " + str(coordX) + str(coordY))
+        directions = create_directions(coordV, coordH, 1)
 
-        directions = [ #room = 1 - 1
-            [coordX, (coordY - 1)], #this is north 1 - 0
-            [(coordX + 1), coordY], #this is east 2 - 1
-            [coordX, (coordY + 1)], #this is south 1 - 2
-            [(coordX - 1), coordY]  #this is west 0 - 1
-        ]
+        directionNames = ["North", "East", "South", "West"]
+        doorVals = []
 
-        print("X" + str(directions[0][0]) + "Y" + str(directions[0][1]))
-        print("X" + str(directions[1][0]) + "Y" + str(directions[1][1]))
-        print("X" + str(directions[2][0]) + "Y" + str(directions[2][1]))
-        print("X" + str(directions[3][0]) + "Y" + str(directions[3][1]))
+        for d in range(0, 4):
+            direction = directions[d]
+            if maze[direction[0]][direction[1]] == doorName:
+                wallCheck[d] = True
+                doorVals.append(directionNames[d])
+            else:
+                wallCheck[d] = False
 
-        #for i in range(0, 3):
-        if maze[directions[0][0]][directions[0][1]] == wallName:
-            wallCheck[0] = False
-        else:
-            wallCheck[0] = True
-        print("X:" + str(directions[0][0]) + "Y:" + str(directions[0][1]) + maze[directions[0][0]][directions[0][1]] )
+        dirText = doorVals[0]
+        for v in range(1, len(doorVals)):
+            dirText += ", " + doorVals[v]
 
-        if maze[directions[1][0]][directions[1][1]] == wallName:
-            wallCheck[1] = False
-        else:
-            wallCheck[1] = True
-        print("X:" + str(directions[1][0]) + "Y:" + str(directions[1][1]) + maze[directions[1][0]][directions[1][1]])
+        print("You are in room " + str(roomNumber))
+        print("You can move " + dirText)
 
-        if maze[directions[2][0]][directions[2][1]] == wallName:
-            wallCheck[2] = False
-        else:
-            wallCheck[2] = True
-        print("X:" + str(directions[2][0]) + "Y:" + str(directions[2][1]) + maze[directions[2][0]][directions[2][1]])
+        validMove = False
+        while validMove == False:
+            move = input("Choose a direction (N/E/S/W): ")
+            if move == "N":
+                val = 0
+            elif move == "E":
+                val = 1
+            elif move == "S":
+                val = 2
+            elif move == "W":
+                val = 3
+            else:
+                print("Invalid command. Please try again")
+                val = 5
 
-        if maze[directions[3][0]][directions[3][1]] == wallName:
-            wallCheck[3] = False
-        else:
-            wallCheck[3] = True
-        print("X:" + str(directions[3][0]) + "Y:" + str(directions[3][1]) + maze[directions[3][0]][directions[3][1]])
+            if val < 5:
+                if wallCheck[val] == False:
+                    print("You have hit a wall. You are still in room " + str(roomNumber))
+                else:
+                    progressDirections = create_directions(coordV, coordH, 2)
+                    newRoomCoords = progressDirections[val]
+                    validMove = True
 
-        print(wallCheck)
+        roomNumber = ax.index(newRoomCoords)
+        if roomNumber == 8:
+            mazeRunning = False
+    print("You have completed the maze!")
 
-        roomNumber += 1
+
+def create_directions(a, b, inc):
+    directions = [
+        [a - inc, b], #North
+        [a, b + inc], #East
+        [a + inc, b], #South
+        [a, b - inc] #West
+    ]
+    return directions
+
 
 floorArr, doorArr = setup_maze()
+print(maze)
 print_maze()
-print(floorArr)
 navigate_maze(floorArr, doorArr)
