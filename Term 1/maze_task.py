@@ -1,6 +1,6 @@
 maze = [[0 for x in range(7)] for y in range(7)] #Initialise maze
-wallName = "H" #Notation for the wall symbol
-doorName = "d" #Notation for the door symbol
+wallName = "■" #Notation for the wall symbol
+doorName = "D" #Notation for the door symbol
 
 def setup_maze(): #Set ups the values in the maze
     walls = [2, 4, 6] #Even numbers for walls
@@ -53,8 +53,8 @@ def navigate_maze(ax): #Direction logic checking and user input
     mazeRunning = True #Set while condition
     while mazeRunning == True:
         #Set up variables
-        coordV = ax[roomNumber][0] #X coord
-        coordH = ax[roomNumber][1] #Y coord
+        coordV = ax[roomNumber][0] #Y coord
+        coordH = ax[roomNumber][1] #X coord
         wallCheck = [False] * 4 #array(BOOL) - whether there is a wall or not
         newRoomCoords = [] #array(ARRAY) - the coordinates of the next room
         directionNames = ["North", "East", "South", "West"] #array(STR) - Names of each direction
@@ -68,7 +68,7 @@ def navigate_maze(ax): #Direction logic checking and user input
             if maze[direction[0]][direction[1]] == doorName: #If Maze[] values of directions[x, y] is equal to the character for a door then:
                 wallCheck[d] = True #Set wallCheck[index] to true
                 doorVals.append(directionNames[d]) #Append direction to doorVals(string from directionNames)
-            else: #Else - #If Maze[] values of directions[x, y] is equal to the character for a wall
+            else: #Else - if Maze[] values of directions[x, y] is equal to the character for a wall
                 wallCheck[d] = False #Set wallCheck[index] to false
 
         #Sets up text telling the directions to take
@@ -77,8 +77,8 @@ def navigate_maze(ax): #Direction logic checking and user input
             dirText += ", " + doorVals[s] #Adds doorVals[index] to a string
 
         #Prints information to the user about the room they are in
-        print("You are in room " + str(roomNumber)) #Print text saying what room you are in
-        print("You can move " + dirText) #Print text saying directions you can take(Taken from dirText)
+        print(f"You are in room {roomNumber}") #Print text saying what room you are in
+        print(f"You can move {dirText}") #Print text saying directions you can take(Taken from dirText)
 
         validMove = False #Set while condition
         while validMove == False:
@@ -99,7 +99,7 @@ def navigate_maze(ax): #Direction logic checking and user input
 
             if val < 5: #Skip wall check if invalid command
                 if wallCheck[val] == False: #Check if value of wallCheck[val] is False (Wall)
-                    print("You have hit a wall. You are still in room " + str(roomNumber)) #Prints error message
+                    print(f"You have hit a wall. You are still in room {roomNumber}") #Prints error message
                 else: #Value of wallCheck[val] is True (Door)
                     progressDirections = create_directions(coordV, coordH, 2) #Creates array(ARRAY) of 4 room directions (e.g 0 -> 1 is coordH + 2))
                     newRoomCoords = progressDirections[val] #Set value of newRoomCoords to the coords in the direction set
