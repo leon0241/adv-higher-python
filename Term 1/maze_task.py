@@ -1,6 +1,7 @@
 maze = [[0 for x in range(7)] for y in range(7)] #Initialise maze
 wallName = "■" #Notation for the wall symbol
 doorName = "D" #Notation for the door symbol
+import time
 
 def setup_maze(): #Set ups the values in the maze
     walls = [2, 4, 6] #Even numbers for walls
@@ -53,12 +54,12 @@ def navigate_maze(ax): #Direction logic checking and user input
     mazeRunning = True #Set while condition
     while mazeRunning == True:
         #Set up variables
-        coordV = ax[roomNumber][0] #Y coord
-        coordH = ax[roomNumber][1] #X coord
+        coordV, coordH = ax[roomNumber] #Y coord
         wallCheck = [False] * 4 #array(BOOL) - whether there is a wall or not
         newRoomCoords = [] #array(ARRAY) - the coordinates of the next room
         directionNames = ["North", "East", "South", "West"] #array(STR) - Names of each direction
         doorVals = [] #array(STR) - Directions that have doors
+        lineReset = 4
 
         directions = create_directions(coordV, coordH, 1) #Creates array(ARRAY) of 4 "directions" (e.g north is coordV - 1)
 
@@ -78,6 +79,7 @@ def navigate_maze(ax): #Direction logic checking and user input
 
         #Prints information to the user about the room they are in
         print(f"You are in room {roomNumber}") #Print text saying what room you are in
+        print(f"\033[K", end = "\r")
         print(f"You can move {dirText}") #Print text saying directions you can take(Taken from dirText)
 
         validMove = False #Set while condition
@@ -94,17 +96,23 @@ def navigate_maze(ax): #Direction logic checking and user input
             elif move == "W":
                 val = 3 #West - 3
             else:
+                print(f"\033[3A")
                 print("Invalid command. Please try again") #Error - input that isn't N/E/S/W
+                time.sleep(2)
+                print(f"\033[3A")
+                print(f"You can move {dirText}")
                 val = 5 #Val = 5 (Highest value)
 
             if val < 5: #Skip wall check if invalid command
                 if wallCheck[val] == False: #Check if value of wallCheck[val] is False (Wall)
-                    print(f"You have hit a wall. You are still in room {roomNumber}") #Prints error message
+                    print(f"\033[3A")
+                    print(f"You have hit a wall. You can move {dirText}") #Prints error message
+                    lineReset += 2
                 else: #Value of wallCheck[val] is True (Door)
                     progressDirections = create_directions(coordV, coordH, 2) #Creates array(ARRAY) of 4 room directions (e.g 0 -> 1 is coordH + 2))
                     newRoomCoords = progressDirections[val] #Set value of newRoomCoords to the coords in the direction set
                     validMove = True #Fulfills while condition
-
+        print(f"\033[4A")
         roomNumber = ax.index(newRoomCoords) #Checks ax for value that matches with newRoomCoords
         if roomNumber == 8: #Checks if roomNumber is 8 (Last room)
             mazeRunning = False #Fulfills while condition
