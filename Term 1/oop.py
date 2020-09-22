@@ -87,7 +87,7 @@ BananasLtd = Cold(136782, "Chilled", True, 1, 4, "")
 NewClothesLtd = Normal(142537, "Dry", "No", "")
 FreshBodiesLtd = Cold(177013, "Frozen", True, 1, 4, "")
 
-todaysDeliveries = [FreshBakesLtd, FrozenFreshFishLtd, BananasLtd, NewClothesLtd]
+todaysDeliveries = [FreshBakesLtd, FrozenFreshFishLtd, BananasLtd, NewClothesLtd, FreshBodiesLtd]
 
 #Print
 print()
