@@ -1,5 +1,6 @@
 #The prime factors of 13195 are 5, 7, 13 and 29.
 #What is the largest prime factor of the number 600851475143 ?
+import math
 
 value = 600851475143
 primeList = []
@@ -11,19 +12,20 @@ def find_factors(value, list):
             list.append(i)
     return list
 
-def find_prime_factors(value, list):
-    primeFactorsList = []
-    for i in range(len(list)):
-        factors = 0
-        for j in range(1, list[i]):
-            if list[i] % j == 0:
-                factors += 1
-        if factors <= 2:
-            primeFactorsList.append(list[i])
-    return primeFactorsList
+def find_primes(val):
+    primeList = []
+    for i in range(1, val, 2):
+        primeList.append(i)
+
+    for i in range(3, (sqrt(val) + 1), 2):
+        #cycle for i = 3
+        for j in primeList:
+            if primeList[j] % i = 0:
+                primeList.remove(j)
+    return primeList
 
 
 primeList = find_factors(value, primeList)
-primeFactors = find_prime_factors(value, primeList)
+#primeFactors = find_prime_factors(value, primeList)
 print(primeList)
-print(primeFactors)
+#print(primeFactors)
