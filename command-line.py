@@ -1,9 +1,7 @@
-#import subprocess
-#subprocess.call('pip install functools --target=D:\UserData\130679900\Downloads\python modules', shell=True)
-
 import os
 a = False
 print("Leon's python CMD loophole")
+print("Commands: cd change")
 while a == False:
     print(":)", end=" ")
     x = input()

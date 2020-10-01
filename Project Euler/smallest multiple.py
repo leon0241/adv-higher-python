@@ -2,23 +2,20 @@
 #What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 import functools
 
-numberRange = 20
+numberRange = 20 #Range of number
 
-def numbers():
+def numbers(): #creates array from 1 to 20
     arr = []
     for i in range(1, (numberRange + 1)):
         arr.append(i)
     return arr
 
-def smallest_number():
-    print("a")
-
-def find_lcm(x, y):
+def find_lcm(x, y): #Finds lowest common multiple (Using the greatest common divisor)
     z = find_gcd(x, y)
     val = (x / z) * y
     return val
 
-def find_gcd(x, y):
+def find_gcd(x, y): #Finds greatest common divider (Euclid's algorithm)
     while y != 0:
         t = y
         y = x % y
