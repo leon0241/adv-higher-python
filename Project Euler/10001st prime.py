@@ -5,6 +5,6 @@ import prime_algorithms as palgs
 
 value = 10001
 
-a  = palgs.find_primes(10001)
+a  = palgs.find_nth_prime(10001)
 
 print(a)
