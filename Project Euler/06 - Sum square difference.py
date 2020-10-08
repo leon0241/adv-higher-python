@@ -16,7 +16,10 @@ def find_sum(n):
 def find_square_of_sum(n):
     return n**2
 
-a, b = find_sum(value)
-c = find_square_of_sum(a)
-difference = c - b
-print(difference)
+def main():
+    a, b = find_sum(value)
+    c = find_square_of_sum(a)
+    difference = c - b
+    print(difference)
+
+main()
