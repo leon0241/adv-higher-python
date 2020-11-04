@@ -8,5 +8,8 @@ def readFile(x):
     val = val[0].rstrip("/n")
     return val
 
+def find_product(n):
+
+
 num = readFile("Resources/08 - Large Number.txt")
 print(num)
